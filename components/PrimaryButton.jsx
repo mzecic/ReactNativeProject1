@@ -1,8 +1,8 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
 
-export default function PrimaryButton({ children }) {
+export default function PrimaryButton({ children, onPress }) {
   function pressHandler() {
-    console.log("Presssed");
+    onPress();
   }
 
   return (
