@@ -1,14 +1,14 @@
-import { StyleSheet, Text, ImageBackground, SafeAreaView } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import { useState } from "react";
+import { useState } from 'react';
+import { StyleSheet, ImageBackground, SafeAreaView } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
-import Colors from "./constants/colors";
-import StartGameScreen from "./screens/StartGameScreen";
-import GameScreen from "./screens/GameScreen";
-import GameOverScreen from "./screens/GameOverScreen";
+import StartGameScreen from './screens/StartGameScreen';
+import GameScreen from './screens/GameScreen';
+import GameOverScreen from './screens/GameOverScreen';
+import Colors from './constants/colors';
 
 export default function App() {
-  const [userNumber, setUserNumber] = useState(null);
+  const [userNumber, setUserNumber] = useState();
   const [gameIsOver, setGameIsOver] = useState(true);
 
   function pickedNumberHandler(pickedNumber) {
@@ -16,14 +16,16 @@ export default function App() {
     setGameIsOver(false);
   }
 
-  let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
-
   function gameOverHandler() {
     setGameIsOver(true);
   }
 
+  let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
+
   if (userNumber) {
-    screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler}/>;
+    screen = (
+      <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />
+    );
   }
 
   if (gameIsOver && userNumber) {
@@ -36,10 +38,10 @@ export default function App() {
       style={styles.rootScreen}
     >
       <ImageBackground
-        imageStyle={styles.backgroundImage}
-        style={styles.rootScreen}
+        source={require('./assets/images/background.jpg')}
         resizeMode="cover"
-        source={require("./assets/images/dices_unsplash.jpg")}
+        style={styles.rootScreen}
+        imageStyle={styles.backgroundImage}
       >
         <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
       </ImageBackground>
